@@ -1,5 +1,9 @@
 # LaunchFrame
 
+<p align="center">
+  <img src=".github/images/launchframe.png" alt="LaunchFrame" width="480" />
+</p>
+
 LaunchFrame is a Windows launcher that starts Warframe together with helper tools (AlecaFrame, Overframe currently) and opens your reference links in one click (such as wiki.warframe or warframe.market).
 
 ## What it does
