@@ -1,0 +1,50 @@
+name: Release on main
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-release:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 6.0.x
+
+      - name: Restore
+        run: dotnet restore WarframeLauncher.sln
+
+      - name: Publish (win-x64)
+        run: dotnet publish WarframeLauncher.sln -c Release -r win-x64 --self-contained false /p:PublishSingleFile=true
+
+      - name: Archive publish output
+        shell: pwsh
+        run: |
+          $publishPath = "src/WarframeLauncher/bin/Release/net6.0-windows/win-x64/publish"
+          if (-not (Test-Path $publishPath)) {
+            Write-Error "Publish output not found at $publishPath"
+          }
+          $artifactName = "LaunchFrame-win-x64.zip"
+          Compress-Archive -Path "$publishPath/*" -DestinationPath $artifactName -Force
+          "artifact_path=$artifactName" | Out-File -FilePath $env:GITHUB_ENV -Append
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: auto-main-${{ github.run_id }}
+          name: LaunchFrame auto main ${{ github.run_id }}
+          body: |
+            Automated build from main.
+            Commit: ${{ github.sha }}
+          files: ${{ env.artifact_path }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

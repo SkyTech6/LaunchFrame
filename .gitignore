@@ -1,0 +1,37 @@
+## Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+## Build results
+[Dd]ebug/
+[Rr]elease/
+[xX]64/
+[xX]86/
+build/
+bld/
+[Bb]in/
+[Oo]bj/
+
+## VS Code
+.vscode/
+
+## NuGet
+*.nupkg
+*.snupkg
+**/packages/
+*.nuget.props
+*.nuget.targets
+
+## Logs
+*.log
+
+## Runtime
+*.pidb
+*.svclog
+
+## Others
+*.cache
+*.tmp
