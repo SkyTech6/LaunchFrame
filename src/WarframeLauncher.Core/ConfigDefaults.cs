@@ -47,7 +47,8 @@ public static class ConfigDefaults
             Urls =
             {
                 new UrlEntry { Url = "https://warframe.market", Enabled = false },
-                new UrlEntry { Url = "https://wiki.warframe.com", Enabled = false }
+                new UrlEntry { Url = "https://wiki.warframe.com", Enabled = false },
+                new UrlEntry { Url = "https://warframetools.com/Task-Checklist", Enabled = false }
             }
         };
     }
